@@ -106,31 +106,8 @@ $ echo "Hello, world!" > file2.txt
 
 ## Тестирование
 
-Для проверки функциональности эмулятора выполните следующую команду:
-```bash
-python -m unittest test_emulator.py
-```
+![Покрытость тестами](images/photo.png)
+
 
 ---
 
-## Пример теста
-
-Тест для команды `ls`:
-
-```python
-import unittest
-from emulator import ShellEmulatorGUI
-
-class TestShellEmulator(unittest.TestCase):
-    def setUp(self):
-        # Подготовка виртуальной файловой системы для тестов
-        self.vfs = {
-            "folder1": {},
-            "file1.txt": None
-        }
-        self.emulator = ShellEmulatorGUI(None, self.vfs, "/tmp/log.csv", "/tmp/vfs.zip")
-
-    def test_ls(self):
-        output = self.emulator.handle_ls([])
-        self.assertEqual(output, "folder1  file1.txt\n")
-```
