@@ -94,45 +94,22 @@ result_1 = 14.142135623730951
 ```
 
 ## Тестирование
+Входные данные:
+`|| Пример простых математических операций
+set x = 5
+set y = 10
+set z = 2
+![x y +]
+![y z *]`
 
-Пример теста:
+Вывод:
+`x = 5.0
+y = 10.0
+z = 2.0
+result_4 = 15.0
+result_5 = 20.0`
 
-```python
-import subprocess
-import os
 
-def test_program():
-    input_code = """set x = 5
-set y = 15
-![ x y + ]
-"""
-    expected_output = """x = 5.0
-y = 15.0
-result_1 = 20.0
-"""
-
-    with open("test_input.txt", "w") as f:
-        f.write(input_code)
-
-    subprocess.run(
-        ["python", "script.py", "test_output.toml"],
-        stdin=open("test_input.txt"),
-        check=True
-    )
-
-    with open("test_output.toml", "r") as f:
-        output = f.read()
-
-    assert output.strip() == expected_output.strip(), "Выходные данные не совпадают"
-
-    os.remove("test_input.txt")
-    os.remove("test_output.toml")
-
-    print("Тест пройден: программа работает корректно")
-
-if __name__ == "__main__":
-    test_program()
-```
 
 ## Замечания
 
