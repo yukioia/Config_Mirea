@@ -1,18 +1,136 @@
-# Создаём файловую систему:
+# Эмулятор оболочки ОС
+
+## Задание №1
+
+Разработать эмулятор для языка оболочки ОС. Необходимо сделать работу эмулятора как можно более похожей на сеанс `shell` в UNIX-подобной ОС.
+
+Эмулятор:
+- Запускается из реальной командной строки.
+- Принимает виртуальную файловую систему в виде zip-архива.
+- Работает в режиме GUI.
+- Поддерживает базовые команды: `ls`, `cd`, `exit`, а также:
+  - `cat` — чтение содержимого файла.
+  - `echo` — вывод текста.
+
+Каждая команда покрыта минимум тремя тестами. Лог-файл фиксирует все действия в формате CSV.
+
+---
+
+## Как запустить эмулятор
+
+### Требования:
+1. Python версии 3.8 или выше.
+
+### Команда запуска:
+```bash
+python emulator.py --vfs_path <path_to_vfs.zip> --log_path <path_to_log.csv>
 ```
-mkdir -p vfs/home/user/documents
-mkdir -p vfs/home/user/pictures
-mkdir -p vfs/etc
-mkdir -p vfs/var/log
-echo 'Это содержимое файла file1.txt в папке documents.' > vfs/home/user/documents/file1.txt
-echo 'Это содержимое файла file2.txt в папке documents.' > vfs/home/user/documents/file2.txt
-echo 'Некоторые заметки пользователя.' > vfs/home/user/notes.txt
-echo 'Содержимое файла конфигурации.' > vfs/etc/config.cfg
-echo -e '127.0.0.1 localhost\n' > vfs/etc/hosts
-echo 'Содержимое системного лога.' > vfs/var/log/system.log
-echo 'Содержимое лога приложения.' > vfs/var/log/app.log
-echo -e '# Добро пожаловать в виртуальную файловую систему\nЭто тестовая ВФС.' > vfs/README.md
-cd vfs 
-zip -r ../test_vfs.zip ./*
-cd ..
+
+### Параметры:
+- `--vfs_path` — путь к zip-архиву виртуальной файловой системы.
+- `--log_path` — путь к лог-файлу в формате CSV.
+
+### Пример запуска:
+```bash
+python emulator.py --vfs_path my_vfs.zip --log_path actions_log.csv
+```
+
+---
+
+## Команды эмулятора
+
+### `ls`
+Выводит содержимое текущей директории.
+
+Пример:
+```bash
+$ ls
+file1.txt  folder1
+```
+
+---
+
+### `cd`
+Переход между директориями.
+
+Пример:
+```bash
+$ cd folder1
+```
+
+- Вернуться в корневую директорию: `cd /`.
+- Перейти в родительскую директорию: `cd ..`.
+
+---
+
+### `cat`
+Чтение содержимого файла.
+
+Пример:
+```bash
+$ cat file1.txt
+Hello, world!
+```
+
+---
+
+### `echo`
+Вывод текста или создание файла.
+
+Пример:
+```bash
+$ echo "Hello, world!" > file2.txt
+```
+
+---
+
+### `exit`
+Завершение работы эмулятора.
+
+- При наличии изменений будет предложено сохранить их.
+
+---
+
+## Логирование
+
+Эмулятор ведет логирование всех действий пользователя. Лог-файл фиксирует каждое действие в формате строки:
+- **Дата и время**, **Команда**.
+
+Пример:
+```
+2023-12-19 10:00:00, ls
+2023-12-19 10:00:05, cd folder1
+```
+
+---
+
+## Тестирование
+
+Для проверки функциональности эмулятора выполните следующую команду:
+```bash
+python -m unittest test_emulator.py
+```
+
+---
+
+## Пример теста
+
+Тест для команды `ls`:
+
+```python
+import unittest
+from emulator import ShellEmulatorGUI
+
+class TestShellEmulator(unittest.TestCase):
+    def setUp(self):
+        # Подготовка виртуальной файловой системы для тестов
+        self.vfs = {
+            "folder1": {},
+            "file1.txt": None
+        }
+        self.emulator = ShellEmulatorGUI(None, self.vfs, "/tmp/log.csv", "/tmp/vfs.zip")
+
+    def test_ls(self):
+        output = self.emulator.handle_ls([])
+        self.assertEqual(output, "folder1  file1.txt\n")
 ```
