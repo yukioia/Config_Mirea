@@ -78,7 +78,7 @@ set c = {1.0.2.0.3.0}
 ![ a b + sqrt ]
 ```
 
-Запустите программу:
+Запустить программу:
 
 ```bash
 python script.py output.toml < input.txt
