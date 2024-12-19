@@ -72,24 +72,6 @@ python script.py /usr/bin/dot bash 2 http://dl-cdn.alpinelinux.org/alpine/v3.18/
 
 ## Тестирование
 
-Пример теста:
-
-```python
-import subprocess
-import os
-
-def test_get_dependencies():
-    result = subprocess.run([
-        "python", "script.py", "/usr/bin/dot", "bash", "1", "http://dl-cdn.alpinelinux.org/alpine/v3.18/main"
-    ], capture_output=True, text=True)
-
-    assert result.returncode == 0, "Программа завершилась с ошибкой"
-    assert os.path.exists("dependency_graph.png"), "Файл с графом не был создан"
-
-    print("Тест пройден: Граф зависимостей создан успешно")
-
-if __name__ == "__main__":
-    test_get_dependencies()
-```
+![Покрытость тестов](Конфиг2.jpg)
 
 
