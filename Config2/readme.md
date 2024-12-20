@@ -63,7 +63,7 @@ python script.py <visualizer_path> <package_name> <max_depth> [repo_url]
 - `[repo_url]`: (опционально) URL репозитория пакетов.
   
 ```bash
-python script.py /usr/bin/dot bash 2 http://dl-cdn.alpinelinux.org/alpine/v3.18/main
+python script.py /usr/bin/dot bash 1 http://dl-cdn.alpinelinux.org/alpine/v3.18/main
 ```
 
 После выполнения программы граф зависимостей будет сохранен в файл `dependency_graph.png` и открыт автоматически.
