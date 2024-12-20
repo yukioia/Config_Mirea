@@ -61,16 +61,17 @@ python script.py <visualizer_path> <package_name> <max_depth> [repo_url]
 - `<package_name>`: имя пакета, для которого строится граф зависимостей.
 - `<max_depth>`: максимальная глубина анализа зависимостей.
 - `[repo_url]`: (опционально) URL репозитория пакетов.
-
-### Пример:
-
+  
 ```bash
 python script.py /usr/bin/dot bash 2 http://dl-cdn.alpinelinux.org/alpine/v3.18/main
 ```
 
 После выполнения программы граф зависимостей будет сохранен в файл `dependency_graph.png` и открыт автоматически.
+### Изображение графа:
 
-## Тестирование
+![Dependency Graph](dependency_graph.png)
+
+## Полнота тестов:
 
 ![Покрытость тестов](Конфиг2.jpg)
 
